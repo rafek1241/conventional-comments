@@ -1,0 +1,18 @@
+{
+  "appName": {
+    "message": "conventional comments",
+    "description": "The name of the application"
+  },
+  "appShortName": {
+    "message": "conv_cmts",
+    "description": "The short_name (maximum of 12 characters recommended) is a short version of the app's name."
+  },
+  "appDescription": {
+    "message": "Chrome extension for conventional comments to use in any place you want",
+    "description": "The description of the application"
+  },
+  "browserActionTitle": {
+    "message": "conventional comments",
+    "description": "The title of the browser action button"
+  }
+}
