@@ -1,9 +1,16 @@
-# Conventional comments - chrome extension
+# Chrome Extension (built with TypeScript + React)
 
-## Introduction
+> This project is a boilerplate project to allow you to quickly build chrome extensions using TypeScript and React.
 
-Extension for [conventional comments](https://conventionalcomments.org) that can work on any page you want if you set it up.
+## Building
 
-## Contribution
+1. Clone repo
+2. `npm i`
+3. `npm run dev` to compile once or `npm run watch` to run the dev task in watch mode
+4. `npm run build` to build a production (minified) version
 
-You are free for contributing.
+## Installation
+
+1. Complete the steps to build the project above
+2. Go to [_chrome://extensions_](chrome://extensions) in Google Chrome
+3. With the developer mode checkbox ticked, click **Load unpacked extension...** and select the _dist_ folder from this repo

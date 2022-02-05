@@ -1,8 +1,2 @@
-
-.DS_Store
-
+dist/js
 node_modules
-npm-debug.log
-
-dist/
-packages/

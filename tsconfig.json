@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
-      "module": "commonjs",
-      "target": "es5",
-      "noImplicitAny": true,
-      "noImplicitUseStrict": true,
-      "noImplicitReturns": true,
-      "strictNullChecks": true,
-      "jsx": "react",
-      "lib": ["dom", "es2017"]
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "lib": ["es2015", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "dist/js",
+    "rootDir": "src",
+    "sourceMap": true,
+    "target": "es5"
   }
 }
