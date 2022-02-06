@@ -1,16 +1,18 @@
-# Chrome Extension (built with TypeScript + React)
+# WIP progress state
 
-> This project is a boilerplate project to allow you to quickly build chrome extensions using TypeScript and React.
+## status
 
-## Building
+I learned how to connect background <> content script and how to inject html page but I don't like current state of this.
+I intentionally didn't wanted to inject react or jquery to the modified websites so I decided to change to `Svelte`.
 
-1. Clone repo
-2. `npm i`
-3. `npm run dev` to compile once or `npm run watch` to run the dev task in watch mode
-4. `npm run build` to build a production (minified) version
+Now I need to refactor the whole project to use `Svelte` and if it worked correctly maybe I will add some more things to do.
 
-## Installation
+React could be okay also, but there are too many things to make custom to work with
 
-1. Complete the steps to build the project above
-2. Go to [_chrome://extensions_](chrome://extensions) in Google Chrome
-3. With the developer mode checkbox ticked, click **Load unpacked extension...** and select the _dist_ folder from this repo
+## TODO
+
+1. `React` => `Svelte`.
+
+2. Use `Svelte` in popup and content script.
+
+3. MVP will be when it will work for azure devops pull requests.
