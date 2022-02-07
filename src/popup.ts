@@ -1,8 +1,13 @@
 import Options from "./components/Options.svelte";
-import type { IStorage } from "./types";
+import type { IOptions } from "./types";
+import App from "./App.svelte";
 
-chrome.storage.sync.get({ count: 0 } as IStorage, ({ count }: IStorage) => {
-    const app = new Options({
+const app = new App({
+    target: document.body
+});
+
+chrome.storage.sync.get({ count: 0 } as IOptions, ({ count }: IOptions) => {
+    const options = new Options({
         target: document.body,
         props: { count },
     });

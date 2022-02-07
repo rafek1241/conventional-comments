@@ -1,5 +1,5 @@
-import type { IStorage } from "./types";
+import type { IOptions } from "./types";
 
-chrome.storage.sync.get({ count: 0 } as IStorage, ({ count }: IStorage) => {
+chrome.storage.sync.get({ count: 0 } as IOptions, ({ count }: IOptions) => {
     console.log(count);
 });

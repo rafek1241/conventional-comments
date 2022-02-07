@@ -1,3 +1,3 @@
-export type IStorage = {
+export type IOptions = {
     count: number;
 };

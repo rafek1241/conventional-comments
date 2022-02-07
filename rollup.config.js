@@ -15,49 +15,54 @@ const production = !process.env.ROLLUP_WATCH;
  * @param {boolean} useSvelte
  */
 function createConfig(filename, useSvelte = false) {
-    return {
-        input: `src/${filename}.ts`,
-        output: {
-            format: "iife",
-            file: `public/build/${filename}.js`,
-        },
-        plugins: [
-            useSvelte &&
-                svelte({
-                    compilerOptions: {
-                        // enable run-time checks when not in production
-                        dev: !production,
-                    },
-                    preprocess: sveltePreprocess(),
-                }),
+  return {
+    input: `src/${filename}.ts`,
+    output: {
+      format: "iife",
+      file: `public/build/${filename}.js`,
+    },
+    plugins: [
+      useSvelte &&
+        svelte({
+          compilerOptions: {
+            // enable run-time checks when not in production
+            dev: !production,
+          },
+          preprocess: sveltePreprocess({
+            sourceMap: !production,
+            postcss: {
+              plugins: [require("tailwindcss"), require("autoprefixer")],
+            },
+          }),
+        }),
 
-            // we'll extract any component CSS out into
-            // a separate file - better for performance
-            css({ output: `${filename}.css` }),
+      // we'll extract any component CSS out into
+      // a separate file - better for performance
+      css({ output: `${filename}.css` }),
 
-            // If you have external dependencies installed from
-            // npm, you'll most likely need these plugins. In
-            // some cases you'll need additional configuration -
-            // consult the documentation for details:
-            // https://github.com/rollup/plugins/tree/master/packages/commonjs
-            resolve({
-                browser: true,
-                dedupe: ["svelte"],
-            }),
+      // If you have external dependencies installed from
+      // npm, you'll most likely need these plugins. In
+      // some cases you'll need additional configuration -
+      // consult the documentation for details:
+      // https://github.com/rollup/plugins/tree/master/packages/commonjs
+      resolve({
+        browser: true,
+        dedupe: ["svelte"],
+      }),
 
-            commonjs(),
-            typescript(),
+      commonjs(),
+      typescript(),
 
-            // If we're building for production (npm run build
-            // instead of npm run dev), minify
-            production && terser(),
-        ],
-    };
+      // If we're building for production (npm run build
+      // instead of npm run dev), minify
+      production && terser(),
+    ],
+  };
 }
 
 export default [
-    createConfig("options", true),
-    createConfig("popup", true),
-    createConfig("background"),
-    createConfig("content_script"),
+  createConfig("options", true),
+  createConfig("popup", true),
+  createConfig("background"),
+  createConfig("content_script"),
 ];
