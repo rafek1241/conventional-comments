@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Debug extension",
             "url": "https://dev.azure.com/robert-szachnowski/DataFaker/_git/DataFaker/pullrequest/1",
-            "runtimeArgs": ["--load-extension=${workspaceFolder}/dist"],
+            "runtimeArgs": ["--load-extension=${workspaceFolder}/public"],
             "webRoot": "${workspaceFolder}"
         }
     ]

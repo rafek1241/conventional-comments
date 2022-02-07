@@ -1,18 +1,28 @@
-# WIP progress state
+# Svelte Typescript Chrome Extension Boilerplate
 
-## status
+> Boilerplate for Chrome Extension Svelte Typescript project
 
-I learned how to connect background <> content script and how to inject html page but I don't like current state of this.
-I intentionally didn't wanted to inject react or jquery to the modified websites so I decided to change to `Svelte`.
+## Development
 
-Now I need to refactor the whole project to use `Svelte` and if it worked correctly maybe I will add some more things to do.
+```bash
+# build files to './public/build'
+# rollup.watch rebuilds your bundle when it detects changes
+npm run dev
+```
 
-React could be okay also, but there are too many things to make custom to work with
+## Build
 
-## TODO
+```bash
+# build files to './public/build'
+$ npm run build
+```
 
-1. `React` => `Svelte`.
+## Load unpacked extensions
 
-2. Use `Svelte` in popup and content script.
+[Getting Started Tutorial](https://developer.chrome.com/docs/extensions/mv3/getstarted/)
 
-3. MVP will be when it will work for azure devops pull requests.
+1. Open the Extension Management page by navigating to `chrome://extensions`.
+2. Enable Developer Mode by clicking the toggle switch next to `Developer mode`.
+3. Click the `LOAD UNPACKED` button and select the `/public` directory.
+
+![Example](https://developer-chrome-com.imgix.net/image/BrQidfK9jaQyIHwdw91aVpkPiib2/iYdLKFsJ1KSVGLhbLRvS.png?auto=format&w=650)

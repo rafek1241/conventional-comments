@@ -1,15 +1,12 @@
 {
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "jsx": "react",
-    "lib": ["es2015", "dom"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "outDir": "dist/js",
-    "rootDir": "src",
-    "sourceMap": true,
-    "target": "es2017"
-  }
+    "extends": "@tsconfig/svelte/tsconfig.json",
+
+    "include": ["src/**/*"],
+    "exclude": ["node_modules/*", "public/*"],
+    "compilerOptions": {
+        "sourceMap": false,
+        "isolatedModules": false,
+        "typeRoots": ["node_modules/@types"],
+        "types": ["svelte", "chrome"]
+    }
 }
