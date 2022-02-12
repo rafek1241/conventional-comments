@@ -20,6 +20,7 @@ function createConfig(filename, useSvelte = false) {
     output: {
       format: "iife",
       file: `public/build/${filename}.js`,
+      sourcemap: !production,
     },
     plugins: [
       useSvelte &&
@@ -51,7 +52,7 @@ function createConfig(filename, useSvelte = false) {
       }),
 
       commonjs(),
-      typescript(),
+      typescript({ sourceMap: !production, inlineSources: !production }),
 
       // If we're building for production (npm run build
       // instead of npm run dev), minify
@@ -64,5 +65,5 @@ export default [
   createConfig("options", true),
   createConfig("popup", true),
   createConfig("background"),
-  createConfig("content_script"),
+  createConfig("content_script", true),
 ];
