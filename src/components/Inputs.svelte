@@ -97,6 +97,7 @@
       decorationValues = decorationsFromRegex;
     }
   });
+
   function renderList(
     event: MouseEvent,
     items: { value: string; label: string; description: string }[],
@@ -123,7 +124,7 @@
         items: items,
       },
     });
-
+        
     selection.$on("destroy", (ev) => {
       selection.$destroy();
       buttonSettings.selected = false;
@@ -139,7 +140,7 @@
 <div class="flex mb-2 items-center">
   <!-- Select label -->
   <button
-    class="bolt-button bolt-expandable-button"
+    class="bolt-button bolt-expandable-button bolt-focus-treatment"
     on:click={(e) => renderList(e, labels, dropdowns[0])}
     class:active={labelValue.length > 0 || dropdowns[0].selected}>
     <div
@@ -155,7 +156,7 @@
   <!-- TODO: fix it -->
   <!-- Select decoration -->
   <button
-    class="bolt-button bolt-expandable-button"
+    class="bolt-button bolt-expandable-button bolt-focus-treatment"
     on:click={(e) => renderList(e, decorationValues, dropdowns[1])}
     class:active={decorationValues.length > 0 || dropdowns[1].selected}>
     <div class="bolt-dropdown-expandable-button-label justify-start flex-grow">

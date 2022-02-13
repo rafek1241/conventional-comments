@@ -34,7 +34,7 @@ observer.observe(document, { childList: true, subtree: true });
 waitForElement("textarea[aria-label=\"Add a comment\"]", true, (matches: Node[]) => {
     console.log("textarea appeared!");
     matches.forEach(async (value: Element) => {
-        const container = value.querySelector(".repos-comment-editor-fit");
+        const container = <HTMLDivElement>value.querySelector(".repos-comment-editor-fit");
         if (container == null) {
             return;
         }

@@ -1,6 +1,11 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import * as marked from "marked";
+  // FOR DEBUG
+  const freezeElement = true;
+
+  import { createEventDispatcher, onDestroy, onMount } from "svelte";
   const dispatch = createEventDispatcher();
+  let component;
 
   export let position = {
     left: 0,
@@ -8,25 +13,25 @@
   };
 
   export let items = [];
-  let isSelectionHovered = false;
 
-  function markThatMouseIsInSelection(): void {
-    isSelectionHovered = true;
-  }
-
-  function destroyElement(): void {
-    if (isSelectionHovered) {
+  function destroyComponentOnClickOutsideSelectionBox(event: FocusEvent) {
+    if (this.contains(event.relatedTarget) == false && freezeElement == false) {
       dispatch("destroy");
     }
   }
+
+  onMount(() => {
+    component.focus();
+  });
 </script>
 
 <div
   class="bolt-contextual-menu flex-column custom-scrollbar depth-8 bolt-callout-content bolt-callout-shadow selection-container"
   style="left: {position.left}px;top: {position.top}px"
-  on:mouseenter={markThatMouseIsInSelection}
-  on:mouseleave={destroyElement}
-  role="dialog">
+  bind:this={component}
+  on:focusout={destroyComponentOnClickOutsideSelectionBox}
+  role="dialog"
+  tabindex="-1">
   <div class="bolt-contextualmenu-container">
     <div class="bolt-menu-container no-outline" tabindex="-1">
       <div class="bolt-menu-spacer" />
@@ -52,7 +57,7 @@
                   <div class="bolt-menuitem-cell-content flex-col flex">
                     <p class="label">{row.label}</p>
                     <p class="description">
-                      {row.description}
+                      {@html marked.parse(row.description)}
                     </p>
                   </div>
                 </td>
@@ -70,6 +75,7 @@
   .selection-container {
     position: absolute;
     max-height: 500px;
+    max-width: 40rem;
   }
 
   p.label {
