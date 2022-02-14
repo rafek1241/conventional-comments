@@ -3,6 +3,7 @@
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
+import copy from "rollup-plugin-copy";
 import css from "rollup-plugin-css-only";
 import svelte from "rollup-plugin-svelte";
 import { terser } from "rollup-plugin-terser";
@@ -40,6 +41,17 @@ function createConfig(filename, useSvelte = false) {
       // we'll extract any component CSS out into
       // a separate file - better for performance
       css({ output: `${filename}.css` }),
+      copy({
+        targets: [
+          { src: "node_modules/remixicon/fonts/*", dest: "public/fonts" },
+          {
+            src: "node_modules/remixicon/fonts/remixicons.css",
+            dest: "public/fonts/remixicons.css",
+            // transform: contents=> contents.toString().replace()
+          },
+        ],
+        copyOnce: true,
+      }),
 
       // If you have external dependencies installed from
       // npm, you'll most likely need these plugins. In
@@ -50,10 +62,8 @@ function createConfig(filename, useSvelte = false) {
         browser: true,
         dedupe: ["svelte"],
       }),
-
       commonjs(),
       typescript({ sourceMap: !production, inlineSources: !production }),
-
       // If we're building for production (npm run build
       // instead of npm run dev), minify
       production && terser(),

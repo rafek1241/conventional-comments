@@ -1,35 +1,5 @@
 import Inputs from "./components/Inputs.svelte";
 import App from "./App.svelte";
-// import type { IOptions } from "./types";
-
-/* chrome.storage.sync.get({ count: 0 } as IOptions, ({ count }: IOptions) => {
-    console.log(count);
-});
- */
-
-/* TODO: How I would like to have it?
-
-Create observer that watches document. When `'textarea[aria-label="Add a comment"]'` appears,
-I should render `Inputs.svelte` with a node attached to it so I could watch over textarea for any changes (bind its value).
-
-*/
-
-
-/*
-let observer = new MutationObserver(mutations => {
-    for (let mutation of mutations) {
-        for (let addedNode of Array.from(mutation.addedNodes)) {
-            if (addedNode.nodeName === "textarea") {
-                console.log("Inserted image", addedNode);
-                observer.disconnect();
-            }
-        }
-    }
-});
-
-observer.observe(document, { childList: true, subtree: true });
-*/
-
 
 waitForElement("textarea[aria-label=\"Add a comment\"]", true, (matches: Node[]) => {
     console.log("textarea appeared!");

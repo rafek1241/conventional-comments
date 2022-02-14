@@ -1,7 +1,8 @@
 <script lang="ts">
   import * as marked from "marked";
+
   // FOR DEBUG
-  const freezeElement = true;
+  const freezeElement = false;
 
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
   const dispatch = createEventDispatcher();
@@ -38,18 +39,18 @@
       <table class="bolt-menu bolt-list body-m relative scroll-hidden">
         <tbody class="relative" role="presentation">
           {#if items.length === 0}
-            <tr><td>There are no items</td></tr>
+            <tr><td class="justify-center px-3">There are no items</td></tr>
           {:else}
             {#each items as row}
               <tr
-                class="bolt-menuitem-row bolt-list-row bolt-menuitem-row-normal cursor-pointer">
+                class="bolt-menuitem-row bolt-list-row bolt-menuitem-row-normal bolt-button cursor-pointer">
                 <!-- icon -->
-                <td class=" bolt-menuitem-cell bolt-list-cell">
+                <td class="bolt-menuitem-cell bolt-list-cell left-icon">
                   <div
                     class="bolt-menuitem-cell-content bolt-menuitem-cell-icon flex-row">
-                    <span
-                      aria-hidden="true"
-                      class="flex-noshrink fabric-icon ms-Icon--BranchMerge" />
+                    <span class="flex-noshrink">
+                      <i class="ri-{row.icon}-line ri-xl"/>
+                      </span>
                   </div>
                 </td>
                 <!-- value -->
@@ -89,5 +90,6 @@
   p.description {
     word-wrap: break-word;
     white-space: normal;
+    font-weight: normal;
   }
 </style>
