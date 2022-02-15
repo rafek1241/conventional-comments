@@ -57,21 +57,21 @@
     {
       value: "non-blocking",
       label: "non-blocking",
-      icon:"ms-Icon--Error",
+      icon: "ms-Icon--Error",
       description:
         "A comment with this decoration **should not** prevent the subject under review from being accepted. This is helpful for organizations that consider comments blocking by default.",
     },
     {
       value: "blocking",
       label: "blocking",
-      icon:"ms-Icon--CriticalErrorSolid",
+      icon: "ms-Icon--CriticalErrorSolid",
       description:
         "A comment with this decoration **should** prevent the subject under review from being accepted, until it is resolved. This is helpful for organizations that consider comments non-blocking by default.",
     },
     {
       value: "if-minor",
       label: "if-minor",
-      icon:"ms-Icon--AccountActivity",
+      icon: "ms-Icon--AccountActivity",
       description:
         "This decoration gives some freedom to the author that they should resolve the comment only if the changes ends up being minor or trivial.",
     },
@@ -111,7 +111,7 @@
   function renderList(
     event: MouseEvent,
     items: { value: string; label: string; description: string }[],
-    buttonSettings: { selected: boolean }
+    buttonSettings: { selected: boolean; value: any }
   ): void {
     if (buttonSettings.selected) {
       return;
@@ -132,7 +132,16 @@
           top: targetRect.top + targetRect.height - parentRect.top,
         },
         items: items,
+        value: buttonSettings.value,
       },
+    });
+
+    selection.$on("valueChanged", (ev : CustomEvent<string>) => {
+      console.log(`selected value: ${ev.detail}`);
+      
+      buttonSettings.value = ev.value;
+      selection.$destroy();
+      buttonSettings.selected = false;
     });
 
     selection.$on("destroy", (ev) => {
@@ -141,9 +150,12 @@
     });
   }
 
-  let dropdowns = [{ selected: false }, { selected: false }];
   export let labelValue = "";
   export let decorationValues = [];
+  $: dropdowns = [
+    { selected: false, value: labelValue },
+    { selected: false, value: decorationValues },
+  ];
 </script>
 
 <!-- <div class="bolt-textfield flex-row flex-center focus-treatment"> -->
@@ -167,7 +179,7 @@
   <!-- Select decoration -->
   <button
     class="bolt-button bolt-expandable-button bolt-focus-treatment"
-    on:click={(e) => renderList(e, decorationValues, dropdowns[1])}
+    on:click={(e) => renderList(e, decorations, dropdowns[1])}
     class:active={decorationValues.length > 0 || dropdowns[1].selected}>
     <div class="bolt-dropdown-expandable-button-label justify-start flex-grow">
       {decorationValues.length > 0

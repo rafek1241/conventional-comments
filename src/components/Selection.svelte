@@ -14,6 +14,7 @@
   };
 
   export let items = [];
+  export let value = "";
 
   function destroyComponentOnClickOutsideSelectionBox(event: FocusEvent) {
     if (this.contains(event.relatedTarget) == false && freezeElement == false) {
@@ -24,13 +25,17 @@
   onMount(() => {
     component.focus();
   });
+
+  function selectItem(row) {
+    dispatch("valueChanged",row.value);
+  }
 </script>
 
 <div
   class="bolt-contextual-menu flex-column custom-scrollbar depth-8 bolt-callout-content bolt-callout-shadow selection-container"
   style="left: {position.left}px;top: {position.top}px"
   bind:this={component}
-  on:focusout={destroyComponentOnClickOutsideSelectionBox} 
+  on:focusout={destroyComponentOnClickOutsideSelectionBox}
   role="dialog"
   tabindex="-1">
   <div class="bolt-contextualmenu-container">
@@ -43,7 +48,9 @@
           {:else}
             {#each items as row}
               <tr
-                class="bolt-menuitem-row bolt-list-row bolt-menuitem-row-normal bolt-button cursor-pointer">
+                class="bolt-menuitem-row bolt-list-row bolt-menuitem-row-normal bolt-button cursor-pointer"
+                class:active={row.value == value}
+                on:click={() => selectItem(row)}>
                 <!-- icon -->
                 <td class="bolt-menuitem-cell bolt-list-cell left-icon">
                   <div
