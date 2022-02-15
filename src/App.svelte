@@ -1,3 +1,7 @@
+<script lang="ts">
+  import "remixicon/fonts/remixicon.css";
+</script>
+
 <style global lang="postcss">
   @tailwind base;
   @tailwind components;

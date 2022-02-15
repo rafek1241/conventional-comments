@@ -43,14 +43,13 @@ function createConfig(filename, useSvelte = false) {
       css({ output: `${filename}.css` }),
       copy({
         targets: [
-          { src: "node_modules/remixicon/fonts/*", dest: "public/fonts" },
           {
-            src: "node_modules/remixicon/fonts/remixicons.css",
-            dest: "public/fonts/remixicons.css",
-            // transform: contents=> contents.toString().replace()
-          },
+            src: "node_modules/remixicon/fonts/*",
+            dest: "public/fonts",
+            ignore: ["**/remixicon.css"],
+          }, 
         ],
-        copyOnce: true,
+        copyOnce: true, 
       }),
 
       // If you have external dependencies installed from

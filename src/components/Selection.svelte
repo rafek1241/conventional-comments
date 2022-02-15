@@ -1,10 +1,10 @@
 <script lang="ts">
   import * as marked from "marked";
+  import { createEventDispatcher, onDestroy, onMount } from "svelte";
 
   // FOR DEBUG
   const freezeElement = false;
 
-  import { createEventDispatcher, onDestroy, onMount } from "svelte";
   const dispatch = createEventDispatcher();
   let component;
 
@@ -30,7 +30,7 @@
   class="bolt-contextual-menu flex-column custom-scrollbar depth-8 bolt-callout-content bolt-callout-shadow selection-container"
   style="left: {position.left}px;top: {position.top}px"
   bind:this={component}
-  on:focusout={destroyComponentOnClickOutsideSelectionBox}
+  on:focusout={destroyComponentOnClickOutsideSelectionBox} 
   role="dialog"
   tabindex="-1">
   <div class="bolt-contextualmenu-container">
@@ -49,8 +49,8 @@
                   <div
                     class="bolt-menuitem-cell-content bolt-menuitem-cell-icon flex-row">
                     <span class="flex-noshrink">
-                      <i class="ri-{row.icon}-line ri-xl"/>
-                      </span>
+                      <i class="ri-{row.icon}-line ri-xl" />
+                    </span>
                   </div>
                 </td>
                 <!-- value -->
