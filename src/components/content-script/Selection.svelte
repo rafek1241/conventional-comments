@@ -27,7 +27,7 @@
   });
 
   function selectItem(row) {
-    dispatch("valueChanged",row.value);
+    dispatch("valueChanged", row.value);
   }
 </script>
 

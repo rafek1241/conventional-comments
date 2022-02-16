@@ -1,4 +1,4 @@
-import Options from "./components/Options.svelte";
+import Options from "./components/settings/Options.svelte";
 import App from "./App.svelte";
 import type { IOptions } from "./types";
 
@@ -7,11 +7,14 @@ const app = new App({
 });
 
 function restoreOptions() {
-    chrome.storage.sync.get({ count: 0 } as IOptions, ({ count }: IOptions) => {
-        const app = new Options({
-            target: document.body,
-            props: { count },
-        });
+    // chrome.storage.sync.get({ count: 0 } as Options, ({ count }: Options) => {
+    //     const app = new Options({
+    //         target: document.body,
+    //         props: { count },
+    //     });
+    // });
+    const app = new Options({
+        target: document.body
     });
 }
 

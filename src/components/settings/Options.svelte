@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { IOptions } from "../types";
+  import type { IOptions } from "../../types";
 
   export let count: number;
   let successMessage: string = null;

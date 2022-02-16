@@ -1,5 +1,5 @@
-import Inputs from "./components/Inputs.svelte";
 import App from "./App.svelte";
+import ButtonsContainer from "./components/content-script/ButtonsContainer.svelte";
 
 waitForElement("textarea[aria-label=\"Add a comment\"]", true, (matches: Node[]) => {
     console.log("textarea appeared!");
@@ -15,7 +15,7 @@ waitForElement("textarea[aria-label=\"Add a comment\"]", true, (matches: Node[])
         });
 
         // inject inputs
-        const el = new Inputs({
+        const el = new ButtonsContainer({
             target: container,
             anchor: container.firstChild,
             props: {
