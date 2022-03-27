@@ -21,7 +21,7 @@ function createConfig(filename, useSvelte = false) {
     output: {
       format: "iife",
       file: `public/build/${filename}.js`,
-      sourcemap: !production,
+      sourcemap: !production ? "inline" : false,
     },
     plugins: [
       useSvelte &&
@@ -47,9 +47,9 @@ function createConfig(filename, useSvelte = false) {
             src: "node_modules/remixicon/fonts/*",
             dest: "public/fonts",
             ignore: ["**/remixicon.css"],
-          }, 
+          },
         ],
-        copyOnce: true, 
+        copyOnce: true,
       }),
 
       // If you have external dependencies installed from
@@ -62,7 +62,10 @@ function createConfig(filename, useSvelte = false) {
         dedupe: ["svelte"],
       }),
       commonjs(),
-      typescript({ sourceMap: !production, inlineSources: !production }),
+      typescript({
+        sourceMap: !production,
+        inlineSources: !production,
+      }),
       // If we're building for production (npm run build
       // instead of npm run dev), minify
       production && terser(),
