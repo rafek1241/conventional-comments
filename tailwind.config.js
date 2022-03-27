@@ -1,6 +1,5 @@
-const production = !process.env.ROLLUP_WATCH;
 module.exports = {
-  content: ["./src/**/*.svelte"],
+  content: ["./src/**/*.{svelte,html}"],
   theme: {
     extend: {},
   },
