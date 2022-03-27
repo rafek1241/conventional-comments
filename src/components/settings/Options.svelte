@@ -13,7 +13,7 @@
   }
 
   function save() {
-    const storage: IOptions = {
+    /*   const storage: IOptions = {
       count,
     };
 
@@ -23,23 +23,17 @@
       setTimeout(() => {
         successMessage = null;
       }, 1500);
-    });
+    }); */
   }
 </script>
 
-<div class="container max-w-lg">
-  <p>Current count: <b>{count}</b></p>
-  <div>
-    <button on:click={decrement}>-</button>
-    <button on:click={increment}>+</button>
-    <button on:click={save}>Save</button>
-    {#if successMessage}<span class="success">{successMessage}</span>{/if}
-  </div>
-  Hehe
+<div class="container">
+  <h1>Extension made with ❤️ by Robert Szachnowski</h1>
 </div>
 
 <style>
   .container {
     min-width: 200px;
+    min-height: 200px;
   }
 </style>
