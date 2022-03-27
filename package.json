@@ -16,6 +16,7 @@
     "@rollup/plugin-typescript": "^8.3.0",
     "@tsconfig/svelte": "^3.0.0",
     "@types/chrome": "0.0.178",
+    "@types/marked": "^4.0.3",
     "autoprefixer": "^10.4.2",
     "marked": "^4.0.12",
     "postcss": "^8.4.6",

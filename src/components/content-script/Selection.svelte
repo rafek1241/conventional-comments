@@ -1,20 +1,21 @@
 <script lang="ts">
-  import * as marked from "marked";
+  import { marked } from "marked";
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
+  import type { IItem } from "../../types";
 
   // FOR DEBUG
   const freezeElement = false;
 
   const dispatch = createEventDispatcher();
-  let component;
+  let component: HTMLDivElement;
 
   export let position = {
     left: 0,
     top: 0,
   };
 
-  export let items = [];
-  export let value = "";
+  export let items: IItem[] = [];
+  export let item: IItem = null;
 
   function destroyComponentOnClickOutsideSelectionBox(event: FocusEvent) {
     if (this.contains(event.relatedTarget) == false && freezeElement == false) {
@@ -24,6 +25,11 @@
 
   onMount(() => {
     component.focus();
+    /*     console.log(
+      `Rendered selection box with position: ${JSON.stringify(
+        component.getBoundingClientRect()
+      )}`
+    ); */
   });
 
   function selectItem(row) {
@@ -49,7 +55,7 @@
             {#each items as row}
               <tr
                 class="bolt-menuitem-row bolt-list-row bolt-menuitem-row-normal bolt-button cursor-pointer"
-                class:active={row.value == value}
+                class:active={row.value == item?.value}
                 on:click={() => selectItem(row)}>
                 <!-- icon -->
                 <td class="bolt-menuitem-cell bolt-list-cell left-icon">

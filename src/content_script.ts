@@ -1,3 +1,5 @@
+import { defaultOptions } from './data';
+import { ConventionalCommentProcessor } from './processor';
 import App from "./App.svelte";
 import ButtonsContainer from "./components/content-script/ButtonsContainer.svelte";
 
@@ -14,20 +16,25 @@ waitForElement("textarea[aria-label=\"Add a comment\"]", true, (matches: Node[])
             target: document.body
         });
 
+
+        const processor = new ConventionalCommentProcessor(
+            container.querySelector("textarea[aria-label=\"Add a comment\"]"),
+            defaultOptions
+        );
+
         // inject inputs
         const el = new ButtonsContainer({
             target: container,
-            anchor: container.firstChild,
+            anchor: container.firstElementChild,
             props: {
-                textArea: container.querySelector("textarea[aria-label=\"Add a comment\"]"),
-                selectionRenderContainer: document.querySelector(".repos-pr-details-page")
+                processor: processor
             }
         });
     });
 });
 
 
-function waitForElement(selector, continuosObserving = false, callback) {
+function waitForElement(selector, continuousObserving = false, callback) {
 
     let observer = new MutationObserver(mutations => {
         if (mutations.flatMap(x => Array.from(x.addedNodes)).map(y => y.textContent).filter(x => x.includes("Comment")).length > 0) {
@@ -43,7 +50,7 @@ function waitForElement(selector, continuosObserving = false, callback) {
             console.log(matches);
             callback(matches);
 
-            if (continuosObserving == false) {
+            if (continuousObserving == false) {
                 observer.disconnect();
             }
         }

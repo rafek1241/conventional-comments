@@ -1,11 +1,14 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+
   import type { IItem } from "../../types";
+
   import Selection from "./Selection.svelte";
 
-  // props
-  export let value: string;
+  export let value: IItem;
   export let label: string;
   export let items: IItem[];
+  export let input: HTMLTextAreaElement | HTMLInputElement;
   export let selected: boolean = false;
   export let isIconInLabel = true;
   export let defaultLabelIconClass = "ms-Icon--ChevronDownMed";
@@ -24,36 +27,38 @@
       return;
     }
 
+    const cssSelector = ".repos-pr-details-page";
     selected = !selected;
-    let parent = document.querySelector(".repos-pr-details-page");
+    let parent = document.querySelector(cssSelector);
     let target = <Element>event.currentTarget;
     let parentRect = parent.getBoundingClientRect();
     let targetRect = target.getBoundingClientRect();
-    console.log(JSON.stringify(targetRect));
 
     const selection = new Selection({
-      target: document.querySelector(".repos-pr-details-page"),
+      target: document.querySelector(cssSelector),
       props: {
         position: {
           left: targetRect.left - parentRect.left,
-          top: targetRect.top + targetRect.height - parentRect.top,
+          top: targetRect.top + parent.scrollTop + targetRect.height - 48,
         },
         items: items,
-        value: value,
+        item: value ?? null,
       },
     });
 
+    selection.$on("destroy", destroySelection);
     selection.$on("valueChanged", (ev: CustomEvent<string>) => {
-      value = ev.detail;
-      selection.$destroy();
-      selected = false;
+      value = items.find((y) => y.value === ev.detail);
+      destroySelection();
     });
 
-    selection.$on("destroy", (ev) => {
+    function destroySelection() {
       selection.$destroy();
       selected = false;
-    });
+    }
   }
+
+  $: description = value?.label ?? label;
 </script>
 
 <!-- on:click={(e) => renderList(e, labels, dropdowns[0])} -->
@@ -63,7 +68,7 @@
   on:click={renderSelection}>
   <!-- description -->
   <div class={additionalPlaceholderClasses}>
-    {value ? value : label}
+    {description}
   </div>
   <!-- icon -->
   {#if isIconInLabel}
