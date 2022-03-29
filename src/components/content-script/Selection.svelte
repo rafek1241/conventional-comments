@@ -90,6 +90,7 @@
     position: absolute;
     max-height: 500px;
     max-width: 40rem;
+    z-index: 1000001;
   }
 
   p.label {

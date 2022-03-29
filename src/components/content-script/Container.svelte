@@ -1,7 +1,7 @@
 <script lang="ts">
   import { defaultOptions } from "../../data";
   import type { ConventionalCommentProcessor } from "../../processor";
-  import Button from "./Button.svelte";
+  import Label from "./Label.svelte";
 
   export let options = defaultOptions;
   export let processor: ConventionalCommentProcessor;
@@ -9,7 +9,7 @@
 </script>
 
 <div class="flex mb-2 items-center">
-  <Button
+  <Label
     label="Select label"
     items={options.labels}
     input={processor.input}

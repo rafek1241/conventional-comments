@@ -1,7 +1,7 @@
 import { defaultOptions } from './data';
 import { ConventionalCommentProcessor } from './processor';
 import App from "./App.svelte";
-import ButtonsContainer from "./components/content-script/ButtonsContainer.svelte";
+import Container from "./components/content-script/Container.svelte";
 
 waitForElement("textarea[aria-label=\"Add a comment\"]", true, (matches: Node[]) => {
     console.log("textarea appeared!");
@@ -23,7 +23,7 @@ waitForElement("textarea[aria-label=\"Add a comment\"]", true, (matches: Node[])
         );
 
         // inject inputs
-        const el = new ButtonsContainer({
+        const el = new Container({
             target: container,
             anchor: container.firstElementChild,
             props: {
