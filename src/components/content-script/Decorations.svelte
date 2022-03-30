@@ -10,6 +10,7 @@
   export let items: IItem[];
 
   export let isIconInLabel = true;
+  export let disabled: boolean = false;
   export let defaultLabelIconClass = "ms-Icon--ChevronDownMed";
   export let selectedLabelIconClass = "ms-Icon--ChevronUpMed";
 
@@ -69,6 +70,8 @@
 <button
   class={additionalButtonClasses}
   class:active={selected}
+  class:disabled
+  {disabled}
   on:click={renderSelection}>
   <!-- description -->
   <div class={additionalPlaceholderClasses}>
