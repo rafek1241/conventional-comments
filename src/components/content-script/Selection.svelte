@@ -3,10 +3,7 @@
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import type { IItem } from "../../types";
 
-  // FOR DEBUG
-  const freezeElement = false;
-
-  const dispatch = createEventDispatcher();
+  const dispatcher = createEventDispatcher();
   let component: HTMLDivElement;
 
   export let position = {
@@ -15,26 +12,48 @@
   };
 
   export let items: IItem[] = [];
-  export let item: IItem = null;
+  export let value: IItem | IItem[];
 
-  function destroyComponentOnClickOutsideSelectionBox(event: FocusEvent) {
-    if (this.contains(event.relatedTarget) == false && freezeElement == false) {
-      dispatch("destroy");
-    }
-  }
+  let multipleSelection = value instanceof Array;
 
   onMount(() => {
     component.focus();
-    /*     console.log(
-      `Rendered selection box with position: ${JSON.stringify(
-        component.getBoundingClientRect()
-      )}`
-    ); */
   });
 
-  function selectItem(row) {
-    dispatch("valueChanged", row.value);
-  }
+  onDestroy(() => {});
+
+  const destroyComponentOnClickOutsideSelectionBox = (event: FocusEvent) => {
+    if (
+      event.relatedTarget == null ||
+      !component.contains(event.relatedTarget as Node)
+    ) {
+      dispatcher("destroy");
+    } else {
+      component.focus();
+    }
+  };
+
+  $: isActiveRow = (row: IItem): Boolean => {
+    if (multipleSelection) {
+      return (value as IItem[]).some((y) => y.value == row.value);
+    } else {
+      return (value as IItem)?.value == row.value;
+    }
+  };
+
+  const selectItem = (row: IItem) => {
+    if (isActiveRow(row) && multipleSelection) {
+      value = (value as IItem[]).filter((item) => item.value != row.value);
+    } else {
+      if (multipleSelection) {
+        value = [...(value as IItem[]), row];
+      } else {
+        value = row;
+      }
+    }
+
+    dispatcher("valueChanged", value);
+  };
 </script>
 
 <div
@@ -55,7 +74,7 @@
             {#each items as row}
               <tr
                 class="bolt-menuitem-row bolt-list-row bolt-menuitem-row-normal bolt-button cursor-pointer"
-                class:active={row.value == item?.value}
+                class:active={isActiveRow(row)}
                 on:click={() => selectItem(row)}>
                 <!-- icon -->
                 <td class="bolt-menuitem-cell bolt-list-cell left-icon">

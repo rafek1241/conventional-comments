@@ -44,7 +44,6 @@
         },
         items: items,
         value: value,
-        parentSelection: selected,
       },
     });
 
