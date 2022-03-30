@@ -4,7 +4,6 @@ import App from "./App.svelte";
 import Container from "./components/content-script/Container.svelte";
 
 waitForElement("textarea[aria-label=\"Add a comment\"]", true, (matches: Node[]) => {
-    console.log("textarea appeared!");
     matches.forEach(async (value: Element) => {
         const container = <HTMLDivElement>value.querySelector(".repos-comment-editor-fit");
         if (container == null) {
@@ -38,7 +37,7 @@ function waitForElement(selector, continuousObserving = false, callback) {
 
     let observer = new MutationObserver(mutations => {
         if (mutations.flatMap(x => Array.from(x.addedNodes)).map(y => y.textContent).filter(x => x.includes("Comment")).length > 0) {
-            console.log("contains comment");
+            // console.log("contains comment");
         }
         const filteredNodes = mutations
             .flatMap(x => Array.from(x.addedNodes))
@@ -47,7 +46,6 @@ function waitForElement(selector, continuousObserving = false, callback) {
         const matches = filteredNodes.filter((value: Element) => value.querySelector(selector));
 
         if (matches.length > 0) {
-            console.log(matches);
             callback(matches);
 
             if (continuousObserving == false) {
