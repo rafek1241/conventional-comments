@@ -6,9 +6,10 @@
   import Selection from "./Selection.svelte";
 
   export let value: IItem;
-  export let label: string;
+
+  let defaultLabel = "Select label";
+
   export let items: IItem[];
-  export let input: HTMLTextAreaElement | HTMLInputElement;
   export let selected: boolean = false;
   export let isIconInLabel = true;
   export let defaultLabelIconClass = "ms-Icon--ChevronDownMed";
@@ -42,23 +43,28 @@
           top: targetRect.top + parent.scrollTop + targetRect.height - 48,
         },
         items: items,
-        item: value ?? null,
+        value: value,
+        parentSelection: selected,
       },
     });
 
-    selection.$on("destroy", destroySelection);
-    selection.$on("valueChanged", (ev: CustomEvent<string>) => {
-      value = items.find((y) => y.value === ev.detail);
-      destroySelection();
+    selection.$on("valueChanged", (ev) => {
+      valueChanged(ev);
+      destroySelection(selection);
     });
-
-    function destroySelection() {
-      selection.$destroy();
-      selected = false;
-    }
+    selection.$on("destroy", () => destroySelection(selection));
   }
 
-  $: description = value?.label ?? label;
+  const valueChanged = (ev: CustomEvent<IItem>) => {
+    value = ev.detail;
+  };
+
+  const destroySelection = (component: Selection) => {
+    component.$destroy();
+    selected = false;
+  };
+
+  $: description = value?.label ?? defaultLabel;
 </script>
 
 <!-- on:click={(e) => renderList(e, labels, dropdowns[0])} -->

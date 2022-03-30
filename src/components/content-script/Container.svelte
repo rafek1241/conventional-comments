@@ -1,6 +1,7 @@
 <script lang="ts">
   import { defaultOptions } from "../../data";
   import type { ConventionalCommentProcessor } from "../../processor";
+  import Decorations from "./Decorations.svelte";
   import Label from "./Label.svelte";
 
   export let options = defaultOptions;
@@ -9,19 +10,12 @@
 </script>
 
 <div class="flex mb-2 items-center">
-  <Label
-    label="Select label"
-    items={options.labels}
-    input={processor.input}
-    bind:value={$value.label} />
-  <!--  <Button-->
-  <!--    label="Select decoration"-->
-  <!--    items={options.decorations}-->
-  <!--    bind:value={decorationValues} />-->
+  <Label items={options.labels} bind:value={$value.label} />
+  <Decorations items={options.decorations} bind:value={$value.decorations} />
 </div>
 
 <style>
-  .items-center button:not(:last-child) {
+  .items-center :global(button:not(:last-child)) {
     margin-right: 0.5rem;
   }
 </style>
