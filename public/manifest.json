@@ -4,10 +4,9 @@
   "version": "1.0",
   "manifest_version": 3,
   "icons": {
-    "16": "/icons/get_started16.png",
-    "32": "/icons/get_started32.png",
-    "48": "/icons/get_started48.png",
-    "128": "/icons/get_started128.png"
+    "32": "/icons/icon@0.25x.png",
+    "64": "/icons/icon@0.5x.png",
+    "128": "/icons/icon.png"
   },
   "background": {
     "service_worker": "background.js"
@@ -19,10 +18,9 @@
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "/icons/get_started16.png",
-      "32": "/icons/get_started32.png",
-      "48": "/icons/get_started48.png",
-      "128": "/icons/get_started128.png"
+      "32": "/icons/icon@0.25x.png",
+      "64": "/icons/icon@0.5x.png",
+      "128": "/icons/icon.png"
     }
   },
   "permissions": ["storage", "scripting", "webNavigation"],
