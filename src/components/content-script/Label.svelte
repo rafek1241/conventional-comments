@@ -8,6 +8,7 @@
   export let value: IItem;
 
   let defaultLabel = "Select label";
+  let button: HTMLButtonElement;
 
   export let items: IItem[];
   export let selected: boolean = false;
@@ -58,9 +59,10 @@
     value = ev.detail;
   };
 
-  const destroySelection = (component: Selection) => {
-    component.$destroy();
+  const destroySelection = (selection: Selection) => {
+    selection.$destroy();
     selected = false;
+    button.focus();
   };
 
   $: description = value?.label ?? defaultLabel;
@@ -70,7 +72,8 @@
 <button
   class={additionalButtonClasses}
   class:active={selected}
-  on:click={renderSelection}>
+  on:click={renderSelection}
+  bind:this={button}>
   <!-- description -->
   <div class={additionalPlaceholderClasses}>
     {description}

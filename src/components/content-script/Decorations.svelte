@@ -5,6 +5,7 @@
   export let value: IItem[];
 
   let defaultLabel = "Select decorations";
+  let button: HTMLButtonElement;
 
   //items to select from
   export let items: IItem[];
@@ -61,6 +62,7 @@
   const destroySelection = (component: Selection) => {
     component.$destroy();
     selected = false;
+    button.focus();
   };
 
   $: description =
@@ -72,7 +74,8 @@
   class:active={selected}
   class:disabled
   {disabled}
-  on:click={renderSelection}>
+  on:click={renderSelection}
+  bind:this={button}>
   <!-- description -->
   <div class={additionalPlaceholderClasses}>
     {description}

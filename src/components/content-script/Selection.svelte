@@ -28,8 +28,6 @@
       !component.contains(event.relatedTarget as Node)
     ) {
       dispatcher("destroy");
-    } else {
-      component.focus();
     }
   };
 
@@ -59,8 +57,9 @@
 <div
   class="bolt-contextual-menu flex-column custom-scrollbar depth-8 bolt-callout-content bolt-callout-shadow selection-container"
   style="left: {position.left}px;top: {position.top}px"
-  bind:this={component}
   on:focusout={destroyComponentOnClickOutsideSelectionBox}
+  on:keydown={(e) => e.key == "Escape" && dispatcher("destroy")}
+  bind:this={component}
   role="dialog"
   tabindex="-1">
   <div class="bolt-contextualmenu-container">
@@ -75,7 +74,9 @@
               <tr
                 class="bolt-menuitem-row bolt-list-row bolt-menuitem-row-normal bolt-button cursor-pointer"
                 class:active={isActiveRow(row)}
-                on:click={() => selectItem(row)}>
+                on:click={() => selectItem(row)}
+                on:keydown={(e) => e.key == "Enter" && selectItem(row)}
+                tabindex="0">
                 <!-- icon -->
                 <td class="bolt-menuitem-cell bolt-list-cell left-icon">
                   <div
