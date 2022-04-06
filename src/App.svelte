@@ -2,6 +2,9 @@
   import "remixicon/fonts/remixicon.css";
 </script>
 
+<!-- For icon pre-rendering -->
+<i class="ri-trophy-line ri-xl invisible absolute top-0 left-0" />
+
 <style global lang="postcss">
   @tailwind base;
   @tailwind components;
