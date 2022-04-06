@@ -3,12 +3,21 @@ import { ConventionalCommentProcessor } from './processor';
 import App from "./App.svelte";
 import Container from "./components/content-script/Container.svelte";
 
+//Element that we want to find
 const selector = "textarea[aria-label=\"Add a comment\"]";
+//Parent elements that defines where the comment box is, not the reply.
+const greenAreaSelectors = [".bolt-timeline-first-row", ".repos-discussion-thread > div:first-child"];
+
 waitForElement(selector, (matches: Node[]) => {
+
+    // get all green area nodes from DOM
+    const greenAreas = document.querySelectorAll(greenAreaSelectors.join(','));
 
     matches.forEach((value: Element) => {
         const container = <HTMLDivElement>value.querySelector(".repos-comment-editor-fit");
-        if (container == null) {
+        const isItInCorrectArea = Array.from(greenAreas).find(x => x.contains(container)) != null;
+
+        if (container == null || isItInCorrectArea == false) {
             return;
         }
 
