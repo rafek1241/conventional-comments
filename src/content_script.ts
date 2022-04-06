@@ -3,8 +3,10 @@ import { ConventionalCommentProcessor } from './processor';
 import App from "./App.svelte";
 import Container from "./components/content-script/Container.svelte";
 
-waitForElement("textarea[aria-label=\"Add a comment\"]", true, (matches: Node[]) => {
-    matches.forEach(async (value: Element) => {
+const selector = "textarea[aria-label=\"Add a comment\"]";
+waitForElement(selector, (matches: Node[]) => {
+
+    matches.forEach((value: Element) => {
         const container = <HTMLDivElement>value.querySelector(".repos-comment-editor-fit");
         if (container == null) {
             return;
@@ -17,7 +19,7 @@ waitForElement("textarea[aria-label=\"Add a comment\"]", true, (matches: Node[])
 
 
         const processor = new ConventionalCommentProcessor(
-            container.querySelector("textarea[aria-label=\"Add a comment\"]"),
+            container.querySelector(selector),
             defaultOptions
         );
 
@@ -33,24 +35,18 @@ waitForElement("textarea[aria-label=\"Add a comment\"]", true, (matches: Node[])
 });
 
 
-function waitForElement(selector, continuousObserving = false, callback) {
+function waitForElement(selector, callback): void {
 
     let observer = new MutationObserver(mutations => {
-        if (mutations.flatMap(x => Array.from(x.addedNodes)).map(y => y.textContent).filter(x => x.includes("Comment")).length > 0) {
-            // console.log("contains comment");
-        }
-        const filteredNodes = mutations
+        const matches = mutations
             .flatMap(x => Array.from(x.addedNodes))
-            .filter(x => x.nodeType === 1);
+            .filter(x => x.nodeType === 1)
+            .filter((value: Element) => value.querySelector(selector));
 
-        const matches = filteredNodes.filter((value: Element) => value.querySelector(selector));
+        const uniqueMatches = excludeNodesThatAreAlreadyCovered(matches);
 
-        if (matches.length > 0) {
-            callback(matches);
-
-            if (continuousObserving == false) {
-                observer.disconnect();
-            }
+        if (uniqueMatches.length > 0) {
+            callback(uniqueMatches);
         }
 
     });
@@ -59,4 +55,16 @@ function waitForElement(selector, continuousObserving = false, callback) {
         childList: true,
         subtree: true
     });
+}
+
+// if nodes are nested, we need to exclude them
+function excludeNodesThatAreAlreadyCovered(matches: Node[]): Node[] {
+    var result: Node[] = [];
+    matches.forEach(match => {
+        if (result.find(x => x.contains(match)) == null) {
+            result.push(match);
+        }
+    });
+
+    return result;
 }
