@@ -3,7 +3,7 @@
 [![Chrome web store release](https://img.shields.io/chrome-web-store/v/mmpphkcgnimoahklmjlenjhnpaobfend?style=for-the-badge)](https://chrome.google.com/webstore/detail/conventional-comments/mmpphkcgnimoahklmjlenjhnpaobfend)
 [![GitHub](https://img.shields.io/github/license/rafek1241/conventional-comments?style=for-the-badge)](https://github.com/rafek1241/conventional-comments/blob/master/LICENSE)
 
-![Logo](./public/icons/icon.png)
+[![Logo](./public/icons/icon.png)](#)
 
 ## Disclaimer
 
