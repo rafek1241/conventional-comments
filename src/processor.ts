@@ -70,7 +70,7 @@ export class ConventionalCommentProcessor {
     let label = match.label?.value ?? "";
     let decorations = match.decorations.map(d => d.value).join(',');
     if (decorations.length > 0) {
-      decorations = `(${decorations})`;
+      decorations = ` (${decorations})`;
     }
 
     if (_.isEmpty(label) && _.isEmpty(decorations)) {
