@@ -2,6 +2,7 @@
 
 [![Chrome web store release](https://img.shields.io/chrome-web-store/v/mmpphkcgnimoahklmjlenjhnpaobfend?style=for-the-badge)](https://chrome.google.com/webstore/detail/conventional-comments/mmpphkcgnimoahklmjlenjhnpaobfend)
 [![GitHub](https://img.shields.io/github/license/rafek1241/conventional-comments?style=for-the-badge)](https://github.com/rafek1241/conventional-comments/blob/master/LICENSE)
+[![BuyMeABeer](https://img.shields.io/badge/🍺_Buy%20me%20a%20beer-navy?style=for-the-badge)](https://www.buymeacoffee.com/rafek1241)
 
 [![Logo](./public/icons/icon.png)](#)
 
