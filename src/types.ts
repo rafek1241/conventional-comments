@@ -24,3 +24,9 @@ export function EmptyMatch(): ConventionalCommentMatch {
         decorations: []
     }
 }
+
+export interface Site {
+    name: string;
+    filters: chrome.events.UrlFilter[];
+    additionalStyles: string;
+}
