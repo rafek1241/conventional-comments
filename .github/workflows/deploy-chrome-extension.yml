@@ -48,6 +48,11 @@ jobs:
         run: |
           mkdir publish
           mv release.zip publish/
+      - name: Share publish directory in artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: my_files.tar
       - name: Upload & publish package
         # You may pin to the exact commit or the version.
         # uses: Passiverecords/chrome-extension-upload-action@d46910ee6515270bde08c1fe2bf0bceaaf5d7fb7
