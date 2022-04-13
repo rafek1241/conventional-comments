@@ -1,8 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
-  import type { IItem } from "../../types";
-
+  import type { IItem, Site } from "../../types";
   import Selection from "./Selection.svelte";
 
   export let value: IItem;
@@ -13,16 +10,15 @@
   export let items: IItem[];
   export let selected: boolean = false;
   export let isIconInLabel = true;
-  export let defaultLabelIconClass = "ms-Icon--ChevronDownMed";
-  export let selectedLabelIconClass = "ms-Icon--ChevronUpMed";
 
-  // styling
-  export let additionalButtonClasses =
-    "bolt-button bolt-expandable-button bolt-focus-treatment";
-  export let additionalPlaceholderClasses =
-    "bolt-dropdown-expandable-button-label justify-start flex-grow text-ellipsis";
-  export let additionalIconClasses =
-    "icon-right font-weight-normal flex-noshrink fabric-icon small";
+  export let site: Site;
+  const componentName = "Label";
+  let componentSettings = site.components.find((x) => x.name == componentName);
+  let additionalButtonClasses = componentSettings.classes;
+  let additionalPlaceholderClasses = componentSettings.placeholderClasses;
+  let additionalIconClasses = componentSettings.additionalIconClasses;
+  let defaultLabelIconClass = componentSettings.defaultIconClass;
+  let selectedLabelIconClass = componentSettings.selectedIconClass;
 
   function renderSelection(event: MouseEvent): void {
     if (selected) {
@@ -68,7 +64,6 @@
   $: description = value?.label ?? defaultLabel;
 </script>
 
-<!-- on:click={(e) => renderList(e, labels, dropdowns[0])} -->
 <button
   class={additionalButtonClasses}
   class:active={selected}
