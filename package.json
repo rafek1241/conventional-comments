@@ -1,9 +1,9 @@
 {
-  "name": "chrome-extension-svelte-typescript-boilerplate",
-  "version": "1.2.0",
+  "name": "conventional-comments-chrome-extension",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nekitcorp/chrome-extension-svelte-typescript-boilerplate.git"
+    "url": "https://github.com/rafek1241/conventional-comments.git"
   },
   "scripts": {
     "build": "rollup -c",
