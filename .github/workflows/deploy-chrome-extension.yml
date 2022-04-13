@@ -27,13 +27,13 @@ jobs:
           useConfigFile: true
       - name: Assign version tag to current commit
         run: |
-          git tag -f "$GITVERSION_SEMVER"
-          git push -f origin "$GITVERSION_SEMVER"
+          git tag -f "${{env.GITVERSION_SEMVER}}"
+          git push -f origin "${{env.GITVERSION_SEMVER}}"
       - name: Augmentations to build
         run: |
-          jq '.version="$GITVERSION_SEMVER"' package.json > package.json.new && mv package.json.new package.json
+          jq '.version="${{env.GITVERSION_SEMVER}}"' package.json > package.json.new && mv package.json.new package.json
           cd "./public"
-          jq '.version="$GITVERSION_SEMVER"' manifest.json > manifest.json.new && mv manifest.json.new manifest.json
+          jq '.version="${{env.GITVERSION_SEMVER}}"' manifest.json > manifest.json.new && mv manifest.json.new manifest.json
           cd ..
       - name: Install NPM Dependencies
         run: npm install
