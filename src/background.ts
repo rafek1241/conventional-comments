@@ -1,4 +1,4 @@
-import { defaultSites } from './data';
+import { defaultSites, LocalStorageKeys } from './data';
 let sites = defaultSites;
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -9,6 +9,9 @@ chrome.runtime.onInstalled.addListener(() => {
 
 sites.forEach(site => {
   chrome.webNavigation.onCompleted.addListener(frame => {
+
+    chrome.storage.local.set({ [LocalStorageKeys.CurrentSite]: site });
+
     // extension-specific styles
     chrome.scripting.insertCSS({
       target: { tabId: frame.tabId },
@@ -24,8 +27,7 @@ sites.forEach(site => {
     // logic that will handle buttons rendering
     chrome.scripting.executeScript({
       target: { tabId: frame.tabId },
-      files: ["build/content_script.js"],
-      args: [site.name]
+      files: ["build/content_script.js"]
     });
   }, { url: site.filters });
 });
