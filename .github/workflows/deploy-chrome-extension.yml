@@ -27,8 +27,7 @@ jobs:
           useConfigFile: true
       - name: Assign version tag to current commit
         run: |
-          git tag -d "$GITVERSION_SEMVER"
-          git tag "$GITVERSION_SEMVER"
+          git tag -f "$GITVERSION_SEMVER"
           git push -f origin "$GITVERSION_SEMVER"
       - name: Augmentations to build
         run: |
