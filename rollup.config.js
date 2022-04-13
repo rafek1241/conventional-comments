@@ -7,6 +7,7 @@ import copy from "rollup-plugin-copy";
 import css from "rollup-plugin-css-only";
 import svelte from "rollup-plugin-svelte";
 import { terser } from "rollup-plugin-terser";
+import json from "@rollup/plugin-json";
 import sveltePreprocess from "svelte-preprocess";
 
 const production = !process.env.ROLLUP_WATCH;
@@ -40,6 +41,7 @@ function createConfig(filename, useSvelte = false) {
 
       // we'll extract any component CSS out into
       // a separate file - better for performance
+      json(),
       css({ output: `${filename}.css` }),
       copy({
         targets: [
