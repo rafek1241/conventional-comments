@@ -51,13 +51,13 @@ jobs:
         uses: Passiverecords/chrome-extension-upload-action@1.4.1
         with:
           # Auth refresh token
-          refresh-token: ${{secrets.RefreshToken}}
+          refresh-token: ${{secrets.REFRESHTOKEN}}
           # Extension application target id
-          app-id: ${{secrets.AppId}}
+          app-id: ${{secrets.APPID}}
           # Token client id
-          client-id: ${{secrets.ClientId}}
+          client-id: ${{secrets.CLIENTID}}
           # Token client secret
-          client-secret: ${{secrets.ClientSecret}}
+          client-secret: ${{secrets.CLIENTSECRET}}
           # Name of zipped target upload file
           file-name: "./publish/release.zip"
           # True Or False to publish after upload
