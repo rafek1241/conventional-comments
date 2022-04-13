@@ -38,6 +38,9 @@ jobs:
         run: npm install
       - name: Build Chrome Extension
         run: npm run build
+      - name: List where am i?
+        run: |
+          ls
       - name: Zip extension
         uses: TheDoctor0/zip-release@0.6.1
         with:
