@@ -1,0 +1,28 @@
+{
+  "name": "Azure DevOps",
+  "filters": [
+    {
+      "urlMatches": "https?://(dev.azure.com){1}[/wdsA-Za-z0-9-_]*(pullrequest/[0-9])+"
+    }
+  ],
+  "additionalStyles": ".repos-pr-details-page { position:relative; }",
+  "components": [
+    {
+      "name": "Container",
+      "classes": "flex mb-2",
+      "type": "div"
+    },
+    {
+      "name": "Label",
+      "type": "button",
+      "classes": "bolt-button bolt-expandable-button bolt-focus-treatment",
+      "placeholderClasses": "bolt-dropdown-expandable-button-label justify-start flex-grow text-ellipsis",
+      "iconEnabled": true,
+      "defaultIconClass": "ms-Icon--ChevronDownMed",
+      "selectedIconClass": "ms-Icon--ChevronUpMed",
+      "additionalIconClasses": "icon-right font-weight-normal flex-noshrink fabric-icon small"
+    },
+    { "name": "Decorations" },
+    { "name": "Selection" }
+  ]
+}

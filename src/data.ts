@@ -1,5 +1,5 @@
 import type { IOptions, Site } from "./types";
-
+import AzureDevopsSiteJSON from "./data/azure-devops-details.json";
 export const defaultOptions: IOptions = {
     labels: [
         {
@@ -70,14 +70,10 @@ export const defaultOptions: IOptions = {
     ]
 };
 
-export const defaultSites: Site[] = [
-    {
-        name: "Azure DevOps",
-        filters: [
-            {
-                urlMatches: "https?:\/\/(dev\.azure\.com){1}[\/\w\d\sA-Za-z0-9-_]*(pullrequest\/[0-9])+"
-            }
-        ],
-        additionalStyles: '.repos-pr-details-page{position:relative;}'
-    }
+export let defaultSites: Site[] = [
+    AzureDevopsSiteJSON
 ];
+
+export const LocalStorageKeys = {
+    CurrentSite: "current-site",
+}

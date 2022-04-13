@@ -28,5 +28,13 @@ export function EmptyMatch(): ConventionalCommentMatch {
 export interface Site {
     name: string;
     filters: chrome.events.UrlFilter[];
+    components: any[];
     additionalStyles: string;
+}
+
+export interface ComponentStyle {
+    name: string;
+    classes: string;
+    styles: string;
+    additionalClasses: string;
 }
