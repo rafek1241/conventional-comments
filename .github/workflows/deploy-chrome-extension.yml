@@ -26,21 +26,17 @@ jobs:
         run: |
           git tag "$GITVERSION_SEMVER"
           git push origin "$GITVERSION_SEMVER"
-      - name: Update version in NPM package
+      - name: Augmentations to build
         run: |
           jq '.version="$GITVERSION_SEMVER"' package.json > package.json.new && mv package.json.new package.json
-      - name: Update version in extension manifest
-        run: |
           cd "./public"
           jq '.version="$GITVERSION_SEMVER"' manifest.json > manifest.json.new && mv manifest.json.new manifest.json
           cd ..
+          mkdir publish
       - name: Install NPM Dependencies
         run: npm install
       - name: Build Chrome Extension
         run: npm run build
-      - name: List where am i?
-        run: |
-          ls
       - name: Zip extension
         uses: TheDoctor0/zip-release@0.6.1
         with:
