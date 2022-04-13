@@ -47,7 +47,11 @@ jobs:
       - name: Move file to publish directory
         run: |
           mv release.zip .\publish\release.zip
-
+          ls
+          cd publish
+          ls
+          cd ..
+          ls
       - name: Upload & publish package
         # You may pin to the exact commit or the version.
         # uses: Passiverecords/chrome-extension-upload-action@d46910ee6515270bde08c1fe2bf0bceaaf5d7fb7
