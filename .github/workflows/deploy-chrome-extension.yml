@@ -46,6 +46,7 @@ jobs:
           path: "public"
       - name: Move zip release to publish directory
         run: |
+          mkdir publish
           mv release.zip publish/
       - name: Upload & publish package
         # You may pin to the exact commit or the version.
