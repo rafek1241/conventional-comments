@@ -2,6 +2,9 @@ name: Build & publish chrome extension
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - master
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -32,7 +35,6 @@ jobs:
           cd "./public"
           jq '.version="$GITVERSION_SEMVER"' manifest.json > manifest.json.new && mv manifest.json.new manifest.json
           cd ..
-          mkdir publish
       - name: Install NPM Dependencies
         run: npm install
       - name: Build Chrome Extension
@@ -40,9 +42,11 @@ jobs:
       - name: Zip extension
         uses: TheDoctor0/zip-release@0.6.1
         with:
-          path: "publish"
-          # Working directory before zipping
-          directory: "./public"
+          type: "zip"
+          path: "public"
+      - name: Move file to publish directory
+        run: |
+          mv release.zip .\publish\release.zip
 
       - name: Upload & publish package
         # You may pin to the exact commit or the version.
