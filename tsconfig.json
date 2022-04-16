@@ -6,6 +6,7 @@
     "isolatedModules": false,
     "typeRoots": ["node_modules/@types"],
     "types": ["svelte", "chrome"],
+    "resolveJsonModule": true,
     "lib": ["es2019", "DOM"]
   }
 }

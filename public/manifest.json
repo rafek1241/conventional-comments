@@ -23,7 +23,7 @@
       "128": "/icons/icon.png"
     }
   },
-  "permissions": ["scripting", "webNavigation"],
+  "permissions": ["scripting", "webNavigation", "storage"],
   "host_permissions": ["*://*/*"],
   "web_accessible_resources": [
     {

@@ -1,5 +1,5 @@
-import type { IOptions } from "./types";
-
+import type { IOptions, Site } from "./types";
+import AzureDevopsSiteJSON from "./data/azure-devops-details.json";
 export const defaultOptions: IOptions = {
     labels: [
         {
@@ -69,3 +69,11 @@ export const defaultOptions: IOptions = {
         },
     ]
 };
+
+export let defaultSites: Site[] = [
+    AzureDevopsSiteJSON
+];
+
+export const LocalStorageKeys = {
+    CurrentSite: "current-site",
+}

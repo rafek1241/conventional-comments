@@ -13,14 +13,13 @@
 
   export let items: IItem[] = [];
   export let value: IItem | IItem[];
+  export let settings: any;
 
-  let multipleSelection = value instanceof Array;
+  let multipleSelection = Array.isArray(value);
 
   onMount(() => {
     component.focus();
   });
-
-  onDestroy(() => {});
 
   const destroyComponentOnClickOutsideSelectionBox = (event: FocusEvent) => {
     if (
@@ -55,54 +54,47 @@
 </script>
 
 <div
-  class="bolt-contextual-menu flex-column custom-scrollbar depth-8 bolt-callout-content bolt-callout-shadow selection-container"
+  class="{settings.selectors.container} selection-container"
   style="left: {position.left}px;top: {position.top}px"
   on:focusout={destroyComponentOnClickOutsideSelectionBox}
   on:keydown={(e) => e.key == "Escape" && dispatcher("destroy")}
   bind:this={component}
   role="dialog"
   tabindex="-1">
-  <div class="bolt-contextualmenu-container">
-    <div class="bolt-menu-container no-outline" tabindex="-1">
-      <div class="bolt-menu-spacer" />
-      <table class="bolt-menu bolt-list body-m relative scroll-hidden">
-        <tbody class="relative" role="presentation">
-          {#if items.length === 0}
-            <tr><td class="justify-center px-3">There are no items</td></tr>
-          {:else}
-            {#each items as row}
-              <tr
-                class="bolt-menuitem-row bolt-list-row bolt-menuitem-row-normal bolt-button cursor-pointer"
-                class:active={isActiveRow(row)}
-                on:click={() => selectItem(row)}
-                on:keydown={(e) => e.key == "Enter" && selectItem(row)}
-                tabindex="0">
-                <!-- icon -->
-                <td class="bolt-menuitem-cell bolt-list-cell left-icon">
-                  <div
-                    class="bolt-menuitem-cell-content bolt-menuitem-cell-icon flex-row">
-                    <span class="flex-noshrink">
-                      <i class="ri-{row.icon}-line ri-xl" />
-                    </span>
-                  </div>
-                </td>
-                <!-- value -->
-                <td class="bolt-menuitem-cell bolt-list-cell">
-                  <div class="bolt-menuitem-cell-content flex-col flex">
-                    <p class="label">{row.label}</p>
-                    <p class="description">
-                      {@html marked.parse(row.description)}
-                    </p>
-                  </div>
-                </td>
-              </tr>
-            {/each}
-          {/if}
-        </tbody>
-      </table>
-      <div class="bolt-menu-spacer" />
-    </div>
-  </div>
+  <div class="p-1" />
+  <table class="{settings.selectors.table} relative scroll-hidden">
+    <tbody class="relative" role="presentation">
+      {#if items.length === 0}
+        <tr><td class="justify-center px-3">There are no items</td></tr>
+      {:else}
+        {#each items as row}
+          <tr
+            class="{settings.selectors.row} cursor-pointer"
+            class:active={isActiveRow(row)}
+            on:click={() => selectItem(row)}
+            on:keydown={(e) => e.key == "Enter" && selectItem(row)}
+            tabindex="0">
+            <!-- icon -->
+            <td class="{settings.selectors.cell} left-icon align-middle">
+              <span class="flex-shrink-0">
+                <i class="ri-{row.icon}-line ri-xl" />
+              </span>
+            </td>
+            <!-- value -->
+            <td class={settings.selectors.cell}>
+              <div class="flex-col flex">
+                <p class="label">{row.label}</p>
+                <p class="description">
+                  {@html marked.parse(row.description)}
+                </p>
+              </div>
+            </td>
+          </tr>
+        {/each}
+      {/if}
+    </tbody>
+  </table>
+  <div class="p-1" />
 </div>
 
 <style>
@@ -111,6 +103,9 @@
     max-height: 500px;
     max-width: 40rem;
     z-index: 1000001;
+  }
+  td.left-icon {
+    padding: 0.5rem;
   }
 
   p.label {

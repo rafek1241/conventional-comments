@@ -1,36 +1,25 @@
 <script lang="ts">
-  import type { IItem } from "../../types";
+  import type { ButtonSettings, Components, IItem } from "../../types";
+  import { createEventDispatcher } from "svelte";
   import Selection from "./Selection.svelte";
 
-  export let value: IItem[];
-
-  let defaultLabel = "Select decorations";
-  let button: HTMLButtonElement;
-
-  //items to select from
+  export let value = null;
   export let items: IItem[];
-
-  export let isIconInLabel = true;
+  export let componentSettings: Components;
+  const settings: ButtonSettings = componentSettings.button;
   export let disabled: boolean = false;
-  export let defaultLabelIconClass = "ms-Icon--ChevronDownMed";
-  export let selectedLabelIconClass = "ms-Icon--ChevronUpMed";
-
-  let selected = false;
-
-  // styling
-  export let additionalButtonClasses =
-    "bolt-button bolt-expandable-button bolt-focus-treatment";
-  export let additionalPlaceholderClasses =
-    "bolt-dropdown-expandable-button-label justify-start flex-grow text-ellipsis";
-  export let additionalIconClasses =
-    "icon-right font-weight-normal flex-noshrink fabric-icon small";
+  export let placeholder = "Select...";
+  let selected: boolean = false;
+  let button: HTMLButtonElement;
+  const dispatcher = createEventDispatcher();
 
   function renderSelection(event: MouseEvent): void {
     if (selected) {
       return;
     }
 
-    const cssSelector = ".repos-pr-details-page";
+    const selectionSettings = componentSettings.selection;
+    const cssSelector = selectionSettings.selectors.render;
     selected = !selected;
     let parent = document.querySelector(cssSelector);
     let target = <Element>event.currentTarget;
@@ -41,11 +30,17 @@
       target: document.querySelector(cssSelector),
       props: {
         position: {
-          left: targetRect.left - parentRect.left,
-          top: targetRect.top + parent.scrollTop + targetRect.height - 48,
+          left:
+            targetRect.left - parentRect.left + selectionSettings.position.left,
+          top:
+            targetRect.top +
+            parent.scrollTop +
+            targetRect.height +
+            selectionSettings.position.top,
         },
         items: items,
         value: value,
+        settings: componentSettings.selection,
       },
     });
 
@@ -65,26 +60,29 @@
     button.focus();
   };
 
-  $: description =
-    value?.length > 0 ? value.map((x) => x.label).join(", ") : defaultLabel;
+  $: valueString = Array.isArray(value)
+    ? value?.length > 0
+      ? value.map((x) => x.label).join(", ")
+      : null
+    : value?.label;
 </script>
 
 <button
-  class={additionalButtonClasses}
+  class={settings.classes}
   class:active={selected}
   class:disabled
   {disabled}
   on:click={renderSelection}
   bind:this={button}>
   <!-- description -->
-  <div class={additionalPlaceholderClasses}>
-    {description}
+  <div class={settings.placeholderClasses}>
+    {valueString || placeholder}
   </div>
   <!-- icon -->
-  {#if isIconInLabel}
+  {#if settings.icon.enabled}
     <span
       class="{selected
-        ? selectedLabelIconClass
-        : defaultLabelIconClass} {additionalIconClasses}" />
+        ? settings.icon?.selected ?? settings.icon.default
+        : settings.icon.default} {settings.icon.classes}" />
   {/if}
 </button>

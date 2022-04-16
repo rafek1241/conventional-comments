@@ -1,20 +1,28 @@
 <script lang="ts">
   import { defaultOptions } from "../../data";
   import type { ConventionalCommentProcessor } from "../../processor";
-  import Decorations from "./Decorations.svelte";
-  import Label from "./Label.svelte";
-
+  import type { Site } from "../../types";
+  import Button from "./Button.svelte";
+  export let site: Site;
+  const componentSettings = site.components;
+  const settings = componentSettings.container;
   export let options = defaultOptions;
   export let processor: ConventionalCommentProcessor;
   let value = processor.value;
 </script>
 
-<div class="flex mb-2 items-center">
-  <Label items={options.labels} bind:value={$value.label} />
-  <Decorations
+<div class="items-center {settings.classes}">
+  <Button
+    items={options.labels}
+    bind:value={$value.label}
+    {componentSettings}
+    placeholder="Select a label" />
+  <Button
     items={options.decorations}
     bind:value={$value.decorations}
-    disabled={$value.label == null} />
+    {componentSettings}
+    disabled={$value.label == null}
+    placeholder="Select decorations" />
 </div>
 
 <style>
