@@ -1,20 +1,19 @@
+import type { Site } from './types';
 import { defaultOptions, LocalStorageKeys } from './data';
 import { ConventionalCommentProcessor } from './processor';
 import App from "./App.svelte";
 import Container from "./components/content-script/Container.svelte";
 
-//Element that we want to find
-const selector = "textarea[aria-label=\"Add a comment\"]";
-//Parent elements that defines where the comment box is, not the reply.
-const greenAreaSelectors = [".bolt-timeline-first-row", ".repos-discussion-thread > div:first-child"];
-
 chrome.storage.local
     .get(LocalStorageKeys.CurrentSite)
     .then(store => {
-        waitForElement(selector, (matches: Node[]) => {
+        const site: Site = store[LocalStorageKeys.CurrentSite];
+        chrome.storage.local.remove(LocalStorageKeys.CurrentSite);
+
+        waitForElement(site.selector, (matches: Node[]) => {
 
             // get all green area nodes from DOM
-            const greenAreas = document.querySelectorAll(greenAreaSelectors.join(','));
+            const greenAreas = document.querySelectorAll(site.greenAreas.join(','));
 
             matches.forEach((value: Element) => {
                 const container = <HTMLDivElement>value.querySelector(".repos-comment-editor-fit");
@@ -30,7 +29,7 @@ chrome.storage.local
                 });
 
                 const processor = new ConventionalCommentProcessor(
-                    container.querySelector(selector),
+                    container.querySelector(site.selector),
                     defaultOptions
                 );
 
@@ -40,7 +39,7 @@ chrome.storage.local
                     anchor: container.firstElementChild,
                     props: {
                         processor: processor,
-                        site: store[LocalStorageKeys.CurrentSite]
+                        site: site
                     }
                 });
             });

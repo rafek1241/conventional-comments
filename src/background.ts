@@ -21,7 +21,7 @@ sites.forEach(site => {
     // page augmentations before insert a extension's content-script
     chrome.scripting.insertCSS({
       target: { tabId: frame.tabId },
-      css: site.additionalStyles
+      css: site.styles
     });
 
     // logic that will handle buttons rendering

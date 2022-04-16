@@ -31,8 +31,6 @@ export class ConventionalCommentProcessor {
     this._value.subscribe(newVal => {
       return this.matchTextAreaInputWithSelectedValue(newVal);
     });
-
-    // this._value.subscribe(newVal => console.log(`New value in processor: ${JSON.stringify(newVal)}`));
   }
 
   private changeLabelAndDecorationWhenInputMatches(): void {

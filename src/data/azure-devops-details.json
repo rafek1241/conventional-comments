@@ -5,24 +5,38 @@
       "urlMatches": "https?://(dev.azure.com){1}[/wdsA-Za-z0-9-_]*(pullrequest/[0-9])+"
     }
   ],
-  "additionalStyles": ".repos-pr-details-page { position:relative; }",
-  "components": [
-    {
-      "name": "Container",
-      "classes": "flex mb-2",
-      "type": "div"
+  "styles": ".repos-pr-details-page { position:relative; }",
+  "selector": "textarea[aria-label=\"Add a comment\"]",
+  "greenAreas": [
+    ".bolt-timeline-first-row",
+    ".repos-discussion-thread > div:first-child"
+  ],
+  "components": {
+    "container": {
+      "classes": "flex mb-2"
     },
-    {
-      "name": "Label",
-      "type": "button",
+    "button": {
       "classes": "bolt-button bolt-expandable-button bolt-focus-treatment",
       "placeholderClasses": "bolt-dropdown-expandable-button-label justify-start flex-grow text-ellipsis",
-      "iconEnabled": true,
-      "defaultIconClass": "ms-Icon--ChevronDownMed",
-      "selectedIconClass": "ms-Icon--ChevronUpMed",
-      "additionalIconClasses": "icon-right font-weight-normal flex-noshrink fabric-icon small"
+      "icon": {
+        "enabled": true,
+        "default": "ms-Icon--ChevronDownMed",
+        "selected": "ms-Icon--ChevronUpMed",
+        "classes": "icon-right font-weight-normal flex-noshrink fabric-icon small"
+      }
     },
-    { "name": "Decorations" },
-    { "name": "Selection" }
-  ]
+    "selection": {
+      "position": {
+        "left": 0,
+        "top": -48
+      },
+      "selectors": {
+        "render": ".repos-pr-details-page",
+        "table": "bolt-contextual-menu flex-column custom-scrollbar depth-8 bolt-callout-content bolt-callout-shadow",
+        "row": "bolt-menuitem-row bolt-list-row bolt-menuitem-row-normal bolt-button",
+        "cell": "bolt-menuitem-cell",
+        "icon": "bolt-menuitem-cell-icon"
+      }
+    }
+  }
 }

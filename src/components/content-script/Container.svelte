@@ -2,26 +2,27 @@
   import { defaultOptions } from "../../data";
   import type { ConventionalCommentProcessor } from "../../processor";
   import type { Site } from "../../types";
-  import Decorations from "./Decorations.svelte";
-  import Label from "./Label.svelte";
-
+  import Button from "./Button.svelte";
+  export let site: Site;
+  const componentSettings = site.components;
+  const settings = componentSettings.container;
   export let options = defaultOptions;
   export let processor: ConventionalCommentProcessor;
   let value = processor.value;
-
-  export let site: Site;
-  const componentName = "Container";
-  let componentSettings = site.components.find((x) => x.name == componentName);
-
-  console.log(JSON.stringify(site));
 </script>
 
-<div class="items-center {componentSettings.classes}">
-  <Label items={options.labels} bind:value={$value.label} {site} />
-  <Decorations
+<div class="items-center {settings.classes}">
+  <Button
+    items={options.labels}
+    bind:value={$value.label}
+    {componentSettings}
+    placeholder="Select a label" />
+  <Button
     items={options.decorations}
     bind:value={$value.decorations}
-    disabled={$value.label == null} />
+    {componentSettings}
+    disabled={$value.label == null}
+    placeholder="Select decorations" />
 </div>
 
 <style>
