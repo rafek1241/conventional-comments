@@ -54,51 +54,47 @@
 </script>
 
 <div
-  class="{settings.selectors.table} selection-container"
+  class="{settings.selectors.container} selection-container"
   style="left: {position.left}px;top: {position.top}px"
   on:focusout={destroyComponentOnClickOutsideSelectionBox}
   on:keydown={(e) => e.key == "Escape" && dispatcher("destroy")}
   bind:this={component}
   role="dialog"
   tabindex="-1">
-  <div class="">
-    <div class="" tabindex="-1">
-      <div class="p-1" />
-      <table class="relative scroll-hidden">
-        <tbody class="relative" role="presentation">
-          {#if items.length === 0}
-            <tr><td class="justify-center px-3">There are no items</td></tr>
-          {:else}
-            {#each items as row}
-              <tr
-                class="{settings.selectors.row} cursor-pointer"
-                class:active={isActiveRow(row)}
-                on:click={() => selectItem(row)}
-                on:keydown={(e) => e.key == "Enter" && selectItem(row)}
-                tabindex="0">
-                <!-- icon -->
-                <td class="{settings.selectors.cell} left-icon align-middle">
-                  <span class="flex-shrink-0">
-                    <i class="ri-{row.icon}-line ri-xl" />
-                  </span>
-                </td>
-                <!-- value -->
-                <td class={settings.selectors.cell}>
-                  <div class="flex-col flex">
-                    <p class="label">{row.label}</p>
-                    <p class="description">
-                      {@html marked.parse(row.description)}
-                    </p>
-                  </div>
-                </td>
-              </tr>
-            {/each}
-          {/if}
-        </tbody>
-      </table>
-      <div class="p-1" />
-    </div>
-  </div>
+  <div class="p-1" />
+  <table class="{settings.selectors.table} relative scroll-hidden">
+    <tbody class="relative" role="presentation">
+      {#if items.length === 0}
+        <tr><td class="justify-center px-3">There are no items</td></tr>
+      {:else}
+        {#each items as row}
+          <tr
+            class="{settings.selectors.row} cursor-pointer"
+            class:active={isActiveRow(row)}
+            on:click={() => selectItem(row)}
+            on:keydown={(e) => e.key == "Enter" && selectItem(row)}
+            tabindex="0">
+            <!-- icon -->
+            <td class="{settings.selectors.cell} left-icon align-middle">
+              <span class="flex-shrink-0">
+                <i class="ri-{row.icon}-line ri-xl" />
+              </span>
+            </td>
+            <!-- value -->
+            <td class={settings.selectors.cell}>
+              <div class="flex-col flex">
+                <p class="label">{row.label}</p>
+                <p class="description">
+                  {@html marked.parse(row.description)}
+                </p>
+              </div>
+            </td>
+          </tr>
+        {/each}
+      {/if}
+    </tbody>
+  </table>
+  <div class="p-1" />
 </div>
 
 <style>

@@ -32,9 +32,10 @@
       },
       "selectors": {
         "render": ".repos-pr-details-page",
-        "table": "bolt-contextual-menu flex-column custom-scrollbar depth-8 bolt-callout-content bolt-callout-shadow",
+        "container": "bolt-contextual-menu flex-column custom-scrollbar depth-8 bolt-callout-content bolt-callout-shadow",
+        "table": "bolt-menu bolt-list",
         "row": "bolt-menuitem-row bolt-list-row bolt-menuitem-row-normal bolt-button",
-        "cell": "bolt-menuitem-cell",
+        "cell": "bolt-menuitem-cell bolt-list-cell",
         "icon": "bolt-menuitem-cell-icon"
       }
     }
