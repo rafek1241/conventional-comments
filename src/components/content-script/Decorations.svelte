@@ -30,7 +30,7 @@
       return;
     }
 
-    const cssSelector = ".repos-pr-details-page";
+    const cssSelector = ".repos-pr-details-page, .js-discussion, .merge-request, .pr-review";
     selected = !selected;
     let parent = document.querySelector(cssSelector);
     let target = <Element>event.currentTarget;

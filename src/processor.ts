@@ -1,4 +1,3 @@
-
 import _ from 'lodash';
 import { Writable, writable } from "svelte/store";
 import { ConventionalCommentMatch, EmptyMatch, IItem, IOptions } from "./types";
