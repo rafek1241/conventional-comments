@@ -1,5 +1,3 @@
-// @ts-check
-
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
@@ -8,6 +6,7 @@ import css from "rollup-plugin-css-only";
 import svelte from "rollup-plugin-svelte";
 import { terser } from "rollup-plugin-terser";
 import sveltePreprocess from "svelte-preprocess";
+import chromeExtension from "rollup-plugin-chrome-extension"; // P411d
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -21,7 +20,7 @@ function createConfig(filename, useSvelte = false) {
     output: {
       format: "iife",
       file: `public/build/${filename}.js`,
-      sourcemap: !production ? "inline" : false,
+      sourcemap: !production ? true : false, // P7acb
     },
     plugins: [
       useSvelte &&
@@ -66,6 +65,7 @@ function createConfig(filename, useSvelte = false) {
         sourceMap: !production,
         inlineSources: !production,
       }),
+      chromeExtension(), // P56be
       // If we're building for production (npm run build
       // instead of npm run dev), minify
       production && terser(),
