@@ -24,7 +24,12 @@
     }
   },
   "permissions": ["scripting", "webNavigation"],
-  "host_permissions": ["*://*/*"],
+  "host_permissions": [
+    "*://*/*",
+    "*://github.com/*",
+    "*://gitlab.com/*",
+    "*://bitbucket.org/*"
+  ],
   "web_accessible_resources": [
     {
       "resources": ["fonts/*"],
