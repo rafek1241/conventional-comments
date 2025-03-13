@@ -6,6 +6,8 @@
     "isolatedModules": false,
     "typeRoots": ["node_modules/@types"],
     "types": ["svelte", "chrome"],
-    "lib": ["es2019", "DOM"]
+    "lib": ["es2019", "DOM"],
+    "sourceMap": true,
+    "inlineSources": true
   }
 }
